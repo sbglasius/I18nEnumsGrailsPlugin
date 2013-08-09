@@ -3,13 +3,14 @@ This plugin adds an annotation on Enums to easy add and implement the MessageSou
 h2. If you use it, let me know
 
 If you use this plugin in your application, let me know - it's always nice to know, when ones work is used in the wild.
-Send me a tweet to @sbglasius or send me an email to soeren@glasius.dk - thank you!
+Send me a tweet to \@sbglasius or send me an email to soeren\@glasius.dk - thank you!
 
 h2. Installation
 
-In your BuildConfig.groovy insert
+In your BuildConfig.groovy insert:
+
 {code}
-    compile ":enum-message-source-resolvable:0.9"
+compile ':enum-message-source-resolvable:0.9'
 {code}
 
 h2. Basic usage
@@ -27,16 +28,16 @@ enum MyEnum {
 
 will generate the following codes for each enum:
 {code}
-    test.MyEnum.ONE.codes   == ['test.MyEnum.ONE',   'test.MyEnum.ONE',   'test.MyEnum.one']
-    test.MyEnum.Two.codes   == ['test.MyEnum.TWO',   'test.MyEnum.Two',   'test.MyEnum.two']
-    test.MyEnum.three.codes == ['test.MyEnum.THREE', 'test.MyEnum.three', 'test.MyEnum.three']
+test.MyEnum.ONE.codes   == ['test.MyEnum.ONE',   'test.MyEnum.ONE',   'test.MyEnum.one']
+test.MyEnum.Two.codes   == ['test.MyEnum.TWO',   'test.MyEnum.Two',   'test.MyEnum.two']
+test.MyEnum.three.codes == ['test.MyEnum.THREE', 'test.MyEnum.three', 'test.MyEnum.three']
 {code}
 
 And the following default values: 
 {code}
-    test.MyEnum.ONE.defaultMessage == 'ONE'
-    test.MyEnum.Two.defaultMessage == 'Two'
-    test.MyEnum.three.defaultMessage == 'three'
+test.MyEnum.ONE.defaultMessage == 'ONE'
+test.MyEnum.Two.defaultMessage == 'Two'
+test.MyEnum.three.defaultMessage == 'three'
 {code}
 
 as it can be seen, the codes comes in three variations: UPPER_CASE, UNCHANGED and LOWER_CASE, and the default message is
@@ -69,9 +70,9 @@ enum MyEnum {
 
 will generate the following codes for each enum:
 {code}
-    test.MyEnum.ONE.codes ==   ['enum.test.MyEnum.ONE.label',   'enum.test.MyEnum.ONE.label',   'enum.test.MyEnum.one.label']
-    test.MyEnum.Two.codes ==   ['enum.test.MyEnum.TWO.label',   'enum.test.MyEnum.Two.label',   'enum.test.MyEnum.two.label']
-    test.MyEnum.three.codes == ['enum.test.MyEnum.THREE.label', 'enum.test.MyEnum.three.label', 'enum.test.MyEnum.three.label']
+test.MyEnum.ONE.codes ==   ['enum.test.MyEnum.ONE.label',   'enum.test.MyEnum.ONE.label',   'enum.test.MyEnum.one.label']
+test.MyEnum.Two.codes ==   ['enum.test.MyEnum.TWO.label',   'enum.test.MyEnum.Two.label',   'enum.test.MyEnum.two.label']
+test.MyEnum.three.codes == ['enum.test.MyEnum.THREE.label', 'enum.test.MyEnum.three.label', 'enum.test.MyEnum.three.label']
 {code}
 
 h3. shortName
@@ -89,16 +90,16 @@ enum MyEnum {
 
 will generate the following codes for each enum:
 {code}
-    test.MyEnum.ONE.codes ==   ['MyEnum.ONE',   'MyEnum.ONE',   'MyEnum.one']
-    test.MyEnum.Two.codes ==   ['MyEnum.TWO',   'MyEnum.Two',   'MyEnum.two']
-    test.MyEnum.three.codes == ['MyEnum.THREE', 'MyEnum.three', 'MyEnum.three']
+test.MyEnum.ONE.codes ==   ['MyEnum.ONE',   'MyEnum.ONE',   'MyEnum.one']
+test.MyEnum.Two.codes ==   ['MyEnum.TWO',   'MyEnum.Two',   'MyEnum.two']
+test.MyEnum.three.codes == ['MyEnum.THREE', 'MyEnum.three', 'MyEnum.three']
 {code}
 
 h3. defaultNameCase
 To control the defaultMessage you can use defaultNameCase. It can be set to one of the following values:
 
 {code}
-    UPPER_CASE, LOWER_CASE, CAPITALIZE, UNCHANGED
+UPPER_CASE, LOWER_CASE, CAPITALIZE, UNCHANGED
 {code}
 
 where UNCHANGED is the default.
@@ -116,9 +117,9 @@ enum MyEnum {
 
 And the following default values:
 {code}
-    test.MyEnum.ONE.defaultMessage == 'One'
-    test.MyEnum.Two.defaultMessage == 'Two'
-    test.MyEnum.three.defaultMessage == 'Three'
+test.MyEnum.ONE.defaultMessage == 'One'
+test.MyEnum.Two.defaultMessage == 'Two'
+test.MyEnum.three.defaultMessage == 'Three'
 {code}
 
 h5. DefaultNameCase.LOWER_CASE
@@ -133,13 +134,13 @@ enum MyEnum {
 
 And the following default values:
 {code}
-    test.MyEnum.ONE.defaultMessage == 'one'
-    test.MyEnum.Two.defaultMessage == 'two'
-    test.MyEnum.three.defaultMessage == 'three'
+test.MyEnum.ONE.defaultMessage == 'one'
+test.MyEnum.Two.defaultMessage == 'two'
+test.MyEnum.three.defaultMessage == 'three'
 {code}
 
 h2. License
-This is opensource and free. Feel free to use it as you please
+This is opensource and freeware. Do what you want. If you use it, it's your own fault.
 
 
 

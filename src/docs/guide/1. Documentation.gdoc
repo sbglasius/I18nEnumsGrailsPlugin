@@ -1,0 +1,146 @@
+This plugin adds an annotation on Enums to easy add and implement the MessageSourceResolvable interface
+
+h2. If you use it, let me know
+
+If you use this plugin in your application, let me know - it's always nice to know, when ones work is used in the wild.
+Send me a tweet to @sbglasius or send me an email to soeren@glasius.dk - thank you!
+
+h2. Installation
+
+In your BuildConfig.groovy insert
+{code}
+    compile ":enum-message-source-resolvable:0.9"
+{code}
+
+h2. Basic usage
+
+You just annotate your ennumeration with @EnumMessageSourceResolvable
+
+{code}
+package test
+
+@EnumMessageSourceResolvable
+enum MyEnum {
+    ONE, Two, three
+}
+{code}
+
+will generate the following codes for each enum:
+{code}
+    test.MyEnum.ONE.codes   == ['test.MyEnum.ONE',   'test.MyEnum.ONE',   'test.MyEnum.one']
+    test.MyEnum.Two.codes   == ['test.MyEnum.TWO',   'test.MyEnum.Two',   'test.MyEnum.two']
+    test.MyEnum.three.codes == ['test.MyEnum.THREE', 'test.MyEnum.three', 'test.MyEnum.three']
+{code}
+
+And the following default values: 
+{code}
+    test.MyEnum.ONE.defaultMessage == 'ONE'
+    test.MyEnum.Two.defaultMessage == 'Two'
+    test.MyEnum.three.defaultMessage == 'three'
+{code}
+
+as it can be seen, the codes comes in three variations: UPPER_CASE, UNCHANGED and LOWER_CASE, and the default message is
+simply the Enum value
+
+h2. Advanced usage
+
+To get even more control over, how the codes and the default value are generated, you can add parameters to the annotation:
+
+{code}
+@EnumMessageSourceResolvable(prefix = '', postfix = '', shortName = false, defaultNameCase = DefaultNameCase.UNCHANGED)
+{code}
+
+
+h3. Prefix and Postfix
+
+Prefix controls what is added before the package name. If you do not add a dot after the prefix, one will be added for you. 
+
+Postfix controls what is added after the ENUM_VALUE. If you do not add a dot before the postfix, one will be added for you.
+
+h4. Example:
+{code}
+package test
+
+@EnumMessageSourceResolvable(prefix = 'enum', postfix = 'label')
+enum MyEnum {
+    ONE, Two, three
+}
+{code}
+
+will generate the following codes for each enum:
+{code}
+    test.MyEnum.ONE.codes ==   ['enum.test.MyEnum.ONE.label',   'enum.test.MyEnum.ONE.label',   'enum.test.MyEnum.one.label']
+    test.MyEnum.Two.codes ==   ['enum.test.MyEnum.TWO.label',   'enum.test.MyEnum.Two.label',   'enum.test.MyEnum.two.label']
+    test.MyEnum.three.codes == ['enum.test.MyEnum.THREE.label', 'enum.test.MyEnum.three.label', 'enum.test.MyEnum.three.label']
+{code}
+
+h3. shortName
+If you do not want the package name in the generated codes, just add shortName = true to your annotation parameters
+
+h4. Example:
+{code}
+package test
+
+@EnumMessageSourceResolvable(shortName = true)
+enum MyEnum {
+    ONE, Two, three
+}
+{code}
+
+will generate the following codes for each enum:
+{code}
+    test.MyEnum.ONE.codes ==   ['MyEnum.ONE',   'MyEnum.ONE',   'MyEnum.one']
+    test.MyEnum.Two.codes ==   ['MyEnum.TWO',   'MyEnum.Two',   'MyEnum.two']
+    test.MyEnum.three.codes == ['MyEnum.THREE', 'MyEnum.three', 'MyEnum.three']
+{code}
+
+h3. defaultNameCase
+To control the defaultMessage you can use defaultNameCase. It can be set to one of the following values:
+
+{code}
+    UPPER_CASE, LOWER_CASE, CAPITALIZE, UNCHANGED
+{code}
+
+where UNCHANGED is the default.
+
+h4. Example:
+h5. DefaultNameCase.CAPITALIZE
+{code}
+package test
+
+@EnumMessageSourceResolvable(defaultNameCase = DefaultNameCase.CAPITALIZE)
+enum MyEnum {
+    ONE, Two, three
+}
+{code}
+
+And the following default values:
+{code}
+    test.MyEnum.ONE.defaultMessage == 'One'
+    test.MyEnum.Two.defaultMessage == 'Two'
+    test.MyEnum.three.defaultMessage == 'Three'
+{code}
+
+h5. DefaultNameCase.LOWER_CASE
+{code}
+package test
+
+@EnumMessageSourceResolvable(defaultNameCase = DefaultNameCase.LOWER_CASE)
+enum MyEnum {
+    ONE, Two, three
+}
+{code}
+
+And the following default values:
+{code}
+    test.MyEnum.ONE.defaultMessage == 'one'
+    test.MyEnum.Two.defaultMessage == 'two'
+    test.MyEnum.three.defaultMessage == 'three'
+{code}
+
+h2. License
+This is opensource and free. Feel free to use it as you please
+
+
+
+TO BE DONE

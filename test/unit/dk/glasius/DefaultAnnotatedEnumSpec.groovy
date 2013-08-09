@@ -18,8 +18,8 @@ class DefaultAnnotatedEnumSpec extends Specification {
 				@EnumMessageSourceResolvable
 				public enum DefaultAnnotatedEnum {
 					ONE,
-					TWO,
-					Three
+					Two,
+					three
 				}
 			"""
 
@@ -39,8 +39,8 @@ class DefaultAnnotatedEnumSpec extends Specification {
 
 		then:
 		clazz.ONE.defaultMessage == 'ONE'
-		clazz.TWO.defaultMessage == 'TWO'
-		clazz.Three.defaultMessage == 'Three'
+		clazz.Two.defaultMessage == 'Two'
+		clazz.three.defaultMessage == 'three'
 	}
 
 
@@ -51,7 +51,8 @@ class DefaultAnnotatedEnumSpec extends Specification {
 
 		then:
 		clazz.ONE.arguments == []
-		clazz.TWO.arguments == []
+		clazz.Two.arguments == []
+		clazz.three.arguments == []
 	}
 
 	def "test that the default annotated enum codes returns correct values"() {
@@ -60,7 +61,8 @@ class DefaultAnnotatedEnumSpec extends Specification {
 
 		then:
 		clazz.ONE.codes == ['dk.glasius.DefaultAnnotatedEnum.ONE','dk.glasius.DefaultAnnotatedEnum.ONE', 'dk.glasius.DefaultAnnotatedEnum.one']
-		clazz.TWO.codes == ['dk.glasius.DefaultAnnotatedEnum.TWO','dk.glasius.DefaultAnnotatedEnum.TWO', 'dk.glasius.DefaultAnnotatedEnum.two']
+		clazz.Two.codes == ['dk.glasius.DefaultAnnotatedEnum.TWO','dk.glasius.DefaultAnnotatedEnum.Two', 'dk.glasius.DefaultAnnotatedEnum.two']
+		clazz.three.codes == ['dk.glasius.DefaultAnnotatedEnum.THREE','dk.glasius.DefaultAnnotatedEnum.three', 'dk.glasius.DefaultAnnotatedEnum.three']
 	}
 
 

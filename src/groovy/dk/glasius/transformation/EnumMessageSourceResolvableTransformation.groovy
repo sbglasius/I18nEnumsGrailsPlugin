@@ -19,19 +19,19 @@ import dk.glasius.annotations.EnumMessageSourceResolvable
 class EnumMessageSourceResolvableTransformation extends AbstractASTTransformation {
 	static final Class MY_CLASS = EnumMessageSourceResolvable
 	static final ClassNode MY_TYPE = ClassHelper.make(MY_CLASS)
-	static final String MY_TYPE_NAME = "@" + MY_TYPE.getNameWithoutPackage()
+	static final String MY_TYPE_NAME = '@' + MY_TYPE.nameWithoutPackage
 
 	void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
 		if(!(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
 			throw new RuntimeException("Internal error: wrong types: ${nodes[0].class} / ${nodes[1].class}")
 		}
-		AnnotationNode annotationNode = nodes[0]
-		AnnotatedNode annotatedNode = nodes[1]
+		def annotationNode = nodes[0]
+		def annotatedNode = nodes[1]
 
 		String prefix = getMemberStringValue(annotationNode, 'prefix')
 		String postfix = getMemberStringValue(annotationNode, 'postfix')
 		boolean shortName = memberHasValue(annotationNode, 'shortName', true)
-		DefaultNameCase defaultNameCase = getEnumAnnotationParam(annotationNode, 'defaultNameCase', DefaultNameCase, DefaultNameCase.UNCHANGED)
+		def defaultNameCase = getEnumAnnotationParam(annotationNode, 'defaultNameCase', DefaultNameCase, DefaultNameCase.UNCHANGED)
 
 		if(annotatedNode instanceof ClassNode) {
 			ClassNode classNode = annotatedNode
@@ -68,11 +68,9 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 
 		block.addStatement(new ReturnStatement(expression))
 
-		def method = new MethodNode("getDefaultMessage", ACC_PUBLIC, ClassHelper.STRING_TYPE, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, block)
+		def method = new MethodNode('getDefaultMessage', ACC_PUBLIC, ClassHelper.STRING_TYPE, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, block)
 		source.addMethod(method)
 	}
-
-
 
 
 	private addGetArgumentsMetod(ClassNode source) {
@@ -80,7 +78,7 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 		def arrayExpression = new ArrayExpression(ClassHelper.make(Object), [])
 		block.addStatement(new ReturnStatement(arrayExpression))
 
-		def method = new MethodNode("getArguments", ACC_PUBLIC, arrayExpression.type, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, block)
+		def method = new MethodNode('getArguments', ACC_PUBLIC, arrayExpression.type, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, block)
 		source.addMethod(method)
 	}
 
@@ -108,7 +106,7 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 		def arrayExpression = new ArrayExpression(new ClassNode(String), [upperCase, unchangedCase, lowerCase])
 		block.addStatement(new ReturnStatement(arrayExpression))
 
-		def method = new MethodNode("getCodes", ACC_PUBLIC, arrayExpression.type, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, block)
+		def method = new MethodNode('getCodes', ACC_PUBLIC, arrayExpression.type, Parameter.EMPTY_ARRAY, ClassNode.EMPTY_ARRAY, block)
 		source.addMethod(method)
 	}
 
@@ -134,6 +132,7 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 		}
 		return defaultValue
 	}
+
 
 	private MethodCallExpression makeMethods(Expression expression, def method) {
 		if(method instanceof List) {

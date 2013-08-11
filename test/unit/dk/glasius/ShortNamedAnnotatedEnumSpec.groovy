@@ -5,18 +5,14 @@ import spock.lang.Unroll
 
 @Mixin(AnnotationTestHelper)
 class ShortNamedAnnotatedEnumSpec extends Specification {
-	def setup() {
-		setUp()
-	}
-
 
 	def source = """
 				package dk.glasius
 				import dk.glasius.annotations.EnumMessageSourceResolvable
-	            import dk.glasius.transformation.DefaultNameCase
+				import dk.glasius.transformation.DefaultNameCase
 
 				@EnumMessageSourceResolvable(shortName = true)
-				public enum ShortNamedAnnotatedEnum {
+				enum ShortNamedAnnotatedEnum {
 					ONE,
 					two,
 					Three,
@@ -38,4 +34,3 @@ class ShortNamedAnnotatedEnumSpec extends Specification {
 		clazz.FOUR_Five.codes == ['ShortNamedAnnotatedEnum.FOUR_FIVE', 'ShortNamedAnnotatedEnum.FOUR_Five', 'ShortNamedAnnotatedEnum.four_five']
 	}
 }
-

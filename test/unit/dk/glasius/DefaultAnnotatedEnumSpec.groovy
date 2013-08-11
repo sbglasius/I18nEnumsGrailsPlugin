@@ -6,17 +6,13 @@ import org.springframework.context.MessageSourceResolvable
 
 @Mixin(AnnotationTestHelper)
 class DefaultAnnotatedEnumSpec extends Specification {
-	def setup() {
-		setUp()
-	}
-
 
 	def source = """
 				package dk.glasius
 				import dk.glasius.annotations.EnumMessageSourceResolvable
 
 				@EnumMessageSourceResolvable
-				public enum DefaultAnnotatedEnum {
+				enum DefaultAnnotatedEnum {
 					ONE,
 					Two,
 					three

@@ -12,14 +12,14 @@ import java.lang.annotation.Target
 @Target(ElementType.TYPE)
 @GroovyASTTransformationClass(["dk.glasius.transformation.EnumMessageSourceResolvableTransformation"])
 public @interface EnumMessageSourceResolvable {
-	String prefix() default '';
+	String prefix() default ''
 
 
-	String postfix() default '';
+	String postfix() default ''
 
 
-	boolean shortName() default false;
+	boolean shortName() default false
 
 
-	DefaultNameCase defaultNameCase() default DefaultNameCase.UNCHANGED;
+	DefaultNameCase defaultNameCase() default DefaultNameCase.UNCHANGED
 }

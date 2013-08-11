@@ -5,24 +5,20 @@ import spock.lang.Unroll
 
 @Mixin(AnnotationTestHelper)
 class PrefixNamedAnnotatedEnumSpec extends Specification {
-	def setup() {
-		setUp()
-	}
 
-
-	def source = """
+	def source = '''
 				package dk.glasius
 				import dk.glasius.annotations.EnumMessageSourceResolvable
-	            import dk.glasius.transformation.DefaultNameCase
+				import dk.glasius.transformation.DefaultNameCase
 
-				@EnumMessageSourceResolvable(prefix = '\${prefix}', postfix = '\${postfix}')
-				public enum PrefixNameCasedAnnotatedEnum {
+				@EnumMessageSourceResolvable(prefix = '${prefix}', postfix = '${postfix}')
+				enum PrefixNameCasedAnnotatedEnum {
 					ONE,
 					two,
 					Three,
 					FOUR_Five
 				}
-			"""
+			'''
 
 
 	@Unroll
@@ -64,4 +60,3 @@ class PrefixNamedAnnotatedEnumSpec extends Specification {
 		"${prefix}dk.glasius.PrefixNameCasedAnnotatedEnum.${name}${postfix}".toString()
 	}
 }
-

@@ -1,38 +1,40 @@
 package dk.glasius.transformation
 
-import dk.glasius.annotations.EnumMessageSourceResolvable
+import static org.codehaus.groovy.ast.expr.MethodCallExpression.NO_ARGUMENTS
+import static org.codehaus.groovy.ast.expr.VariableExpression.THIS_EXPRESSION
+
+import org.codehaus.groovy.ast.*
+import org.codehaus.groovy.ast.expr.*
 import org.codehaus.groovy.ast.stmt.BlockStatement
 import org.codehaus.groovy.ast.stmt.ReturnStatement
 import org.codehaus.groovy.control.CompilePhase
 import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.AbstractASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation
-import org.codehaus.groovy.ast.*
-import org.codehaus.groovy.ast.expr.*
+import org.springframework.context.MessageSourceResolvable
 
-import static org.codehaus.groovy.ast.expr.MethodCallExpression.NO_ARGUMENTS
-import static org.codehaus.groovy.ast.expr.VariableExpression.THIS_EXPRESSION
+import dk.glasius.annotations.EnumMessageSourceResolvable
 
 @GroovyASTTransformation(phase = CompilePhase.INSTRUCTION_SELECTION)
 class EnumMessageSourceResolvableTransformation extends AbstractASTTransformation {
-	static final Class MY_CLASS = EnumMessageSourceResolvable.class;
-	static final ClassNode MY_TYPE = ClassHelper.make(MY_CLASS);
-	static final String MY_TYPE_NAME = "@" + MY_TYPE.getNameWithoutPackage();
+	static final Class MY_CLASS = EnumMessageSourceResolvable
+	static final ClassNode MY_TYPE = ClassHelper.make(MY_CLASS)
+	static final String MY_TYPE_NAME = "@" + MY_TYPE.getNameWithoutPackage()
 
 	void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
 		if(!(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
 			throw new RuntimeException("Internal error: wrong types: ${nodes[0].class} / ${nodes[1].class}")
 		}
-		AnnotationNode annotationNode = (AnnotationNode) nodes[0]
-		AnnotatedNode annotatedNode = (AnnotatedNode) nodes[1];
+		AnnotationNode annotationNode = nodes[0]
+		AnnotatedNode annotatedNode = nodes[1]
 
 		String prefix = getMemberStringValue(annotationNode, 'prefix')
 		String postfix = getMemberStringValue(annotationNode, 'postfix')
 		boolean shortName = memberHasValue(annotationNode, 'shortName', true)
-		DefaultNameCase defaultNameCase = (DefaultNameCase)getEnumAnnotationParam(annotationNode, 'defaultNameCase', DefaultNameCase, DefaultNameCase.UNCHANGED)
+		DefaultNameCase defaultNameCase = getEnumAnnotationParam(annotationNode, 'defaultNameCase', DefaultNameCase, DefaultNameCase.UNCHANGED)
 
 		if(annotatedNode instanceof ClassNode) {
-			ClassNode classNode = (ClassNode) annotatedNode;
+			ClassNode classNode = annotatedNode
 			addInterface(classNode)
 			addGetDefaultMessageMetod(classNode, defaultNameCase)
 			addGetCodesMetod(classNode, prefix, postfix, shortName)
@@ -42,7 +44,7 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 
 
 	private addInterface(ClassNode classNode) {
-		def clazz = ClassHelper.make(org.springframework.context.MessageSourceResolvable)
+		def clazz = ClassHelper.make(MessageSourceResolvable)
 		classNode.addInterface(clazz)
 	}
 
@@ -53,13 +55,13 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 		switch(defaultNameCase) {
 			case DefaultNameCase.CAPITALIZE:
 				expression = makeMethods(THIS_EXPRESSION, ['name','toLowerCase','capitalize'])
-				break;
+				break
 			case DefaultNameCase.LOWER_CASE:
 				expression = makeMethods(THIS_EXPRESSION, ['name','toLowerCase'])
-				break;
+				break
 			case DefaultNameCase.UPPER_CASE:
 				expression = makeMethods(THIS_EXPRESSION, ['name','toUpperCase'])
-				break;
+				break
 			default:
 				expression = makeMethods(THIS_EXPRESSION, 'name')
 		}
@@ -138,8 +140,7 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 			return method.inject(expression) { Expression expr, String name ->
 				return new MethodCallExpression(expr, name, NO_ARGUMENTS)
 			}
-		} else {
-			return new MethodCallExpression(expression, (String)method, NO_ARGUMENTS)
 		}
+		return new MethodCallExpression(expression, (String)method, NO_ARGUMENTS)
 	}
 }

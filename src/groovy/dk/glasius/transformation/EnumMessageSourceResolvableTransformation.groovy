@@ -25,7 +25,7 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 		if(!(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
 			throw new RuntimeException("Internal error: wrong types: ${nodes[0].class} / ${nodes[1].class}")
 		}
-		def annotationNode = nodes[0]
+		AnnotationNode annotationNode = nodes[0] as AnnotationNode
 		def annotatedNode = nodes[1]
 
 		String prefix = getMemberStringValue(annotationNode, 'prefix')
@@ -50,6 +50,7 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 
 
 	private addGetDefaultMessageMetod(ClassNode source, final defaultNameCase) {
+        if(source.getMethods('getDefaultMessage')) return
 		def block = new BlockStatement()
 		def expression
 		switch(defaultNameCase) {
@@ -74,6 +75,7 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 
 
 	private addGetArgumentsMetod(ClassNode source) {
+        if(source.getMethods('getArguments')) return
 		def block = new BlockStatement()
 		def arrayExpression = new ArrayExpression(ClassHelper.make(Object), [])
 		block.addStatement(new ReturnStatement(arrayExpression))
@@ -84,6 +86,7 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 
 
 	private addGetCodesMetod(ClassNode source, String prefix, String postfix, boolean shortName) {
+        if(source.getMethods('getCodes')) return
 		def block = new BlockStatement()
 		def enumName = makeMethods(THIS_EXPRESSION, 'name')
 		def enumNameLowerCase = makeMethods(enumName, 'toLowerCase')

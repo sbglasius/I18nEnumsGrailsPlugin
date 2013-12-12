@@ -1,6 +1,6 @@
-package dk.glasius.annotations
+package grails.plugin.enummessagesourceresolvable.annotations
 
-import dk.glasius.transformation.DefaultNameCase
+import grails.plugin.enummessagesourceresolvable.transformation.DefaultNameCase
 import org.codehaus.groovy.transform.GroovyASTTransformationClass
 
 import java.lang.annotation.ElementType
@@ -10,7 +10,7 @@ import java.lang.annotation.Target
 
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.TYPE)
-@GroovyASTTransformationClass(["dk.glasius.transformation.EnumMessageSourceResolvableTransformation"])
+@GroovyASTTransformationClass(["grails.plugin.enummessagesourceresolvable.transformation.EnumMessageSourceResolvableTransformation"])
 public @interface EnumMessageSourceResolvable {
 	String prefix() default ''
 

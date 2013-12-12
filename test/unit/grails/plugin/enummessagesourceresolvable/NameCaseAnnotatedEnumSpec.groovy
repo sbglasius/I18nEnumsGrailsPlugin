@@ -1,4 +1,4 @@
-package dk.glasius
+package grails.plugin.enummessagesourceresolvable
 
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -8,8 +8,8 @@ class NameCaseAnnotatedEnumSpec extends Specification {
 
 	def source = '''
 				package dk.glasius
-				import dk.glasius.annotations.EnumMessageSourceResolvable
-				import dk.glasius.transformation.DefaultNameCase
+				import grails.plugin.enummessagesourceresolvable.annotations.EnumMessageSourceResolvable
+				import grails.plugin.enummessagesourceresolvable.transformation.DefaultNameCase
 
 				@EnumMessageSourceResolvable(defaultNameCase = DefaultNameCase.${nameCase})
 				enum NameCasedAnnotatedEnum {
@@ -39,6 +39,7 @@ class NameCaseAnnotatedEnumSpec extends Specification {
 		'UPPER_CASE' | 'ONE' | 'TWO' | 'THREE' | 'FOUR_FIVE'
 		'LOWER_CASE' | 'one' | 'two' | 'three' | 'four_five'
 		'CAPITALIZE' | 'One' | 'Two' | 'Three' | 'Four_five'
+		'ALL_CAPS' | 'One' | 'Two' | 'Three' | 'Four Five'
 	}
 }
 

@@ -1,4 +1,4 @@
-package dk.glasius
+package grails.plugin.enummessagesourceresolvable
 
 import spock.lang.Specification
 import org.springframework.context.MessageSourceResolvable
@@ -9,7 +9,7 @@ class DefaultAnnotatedEnumSpec extends Specification {
 
 	def source = """
 				package dk.glasius
-				import dk.glasius.annotations.EnumMessageSourceResolvable
+				import grails.plugin.enummessagesourceresolvable.annotations.EnumMessageSourceResolvable
 
 				@EnumMessageSourceResolvable
 				enum DefaultAnnotatedEnum {

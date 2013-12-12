@@ -1,4 +1,4 @@
-package dk.glasius
+package grails.plugin.enummessagesourceresolvable
 
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -8,8 +8,8 @@ class ShortNamedAnnotatedEnumSpec extends Specification {
 
 	def source = """
 				package dk.glasius
-				import dk.glasius.annotations.EnumMessageSourceResolvable
-				import dk.glasius.transformation.DefaultNameCase
+				import grails.plugin.enummessagesourceresolvable.annotations.EnumMessageSourceResolvable
+				import grails.plugin.enummessagesourceresolvable.transformation.DefaultNameCase
 
 				@EnumMessageSourceResolvable(shortName = true)
 				enum ShortNamedAnnotatedEnum {

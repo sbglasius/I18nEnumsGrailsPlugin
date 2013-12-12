@@ -1,4 +1,4 @@
-package dk.glasius
+package grails.plugin.enummessagesourceresolvable
 
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -8,10 +8,10 @@ class PrefixNamedAnnotatedEnumSpec extends Specification {
 
 	def source = '''
 				package dk.glasius
-				import dk.glasius.annotations.EnumMessageSourceResolvable
-				import dk.glasius.transformation.DefaultNameCase
+				import grails.plugin.enummessagesourceresolvable.annotations.EnumMessageSourceResolvable
+				import grails.plugin.enummessagesourceresolvable.transformation.DefaultNameCase
 
-				@EnumMessageSourceResolvable(prefix = '${prefix}', postfix = '${postfix}')
+				@EnumMessageSourceResolvable(${args})
 				enum PrefixNameCasedAnnotatedEnum {
 					ONE,
 					two,
@@ -25,9 +25,13 @@ class PrefixNamedAnnotatedEnumSpec extends Specification {
 	def "test that the default annotated enum default message returns correct values"() {
 		when:
 		def args = []
-		if(prefix) args << "prefix = ${prefix}"
-		if(postfix) args << "postfix = ${postfix}'"
-		def clazz = add_class_to_classpath(createSourceCodeForTemplate(source, [prefix: prefix, postfix: postfix]))
+		if(prefix) args << "prefix = '${prefix}'"
+		if(postfix) args << "postfix = '${postfix}'"
+        def src = createSourceCodeForTemplate(source, [args: args.join(", ")])
+        println src
+        def clazz = add_class_to_classpath(src)
+
+
 
 		then:
 		clazz.ONE.codes == createCodeList('ONE', expectedPrefix, expectedPostfix)

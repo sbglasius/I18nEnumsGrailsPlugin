@@ -1,4 +1,4 @@
-package dk.glasius
+package grails.plugin.enummessagesourceresolvable
 import spock.lang.Specification
 
 @Mixin(AnnotationTestHelper)
@@ -7,7 +7,7 @@ class AlreadyImplementedMethodAnnotatedEnumSpec extends Specification {
 	def source = {"""
             package dk.glasius
 
-            import dk.glasius.annotations.EnumMessageSourceResolvable
+            import grails.plugin.enummessagesourceresolvable.annotations.EnumMessageSourceResolvable
             import org.springframework.context.MessageSourceResolvable
 
 

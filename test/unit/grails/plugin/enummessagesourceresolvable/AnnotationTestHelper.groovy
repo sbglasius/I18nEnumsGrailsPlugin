@@ -1,12 +1,10 @@
-package dk.glasius
-
-import static org.junit.Assert.*
-
+package grails.plugin.enummessagesourceresolvable
 import groovy.text.GStringTemplateEngine
 import groovy.text.TemplateEngine
-
 import org.codehaus.groovy.runtime.ScriptBytecodeAdapter
-import org.junit.Before
+
+import static org.junit.Assert.assertTrue
+import static org.junit.Assert.fail
 
 /**
  * @author ast

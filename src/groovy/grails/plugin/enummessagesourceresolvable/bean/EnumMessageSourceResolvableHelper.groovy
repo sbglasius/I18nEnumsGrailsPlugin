@@ -1,16 +1,12 @@
 package grails.plugin.enummessagesourceresolvable.bean
 
 import grails.plugin.enummessagesourceresolvable.transformation.DefaultNameCase
-import org.codehaus.groovy.grails.commons.GrailsApplication
-import org.springframework.beans.factory.annotation.Autowired
+import grails.util.Holders
 import org.springframework.context.MessageSourceResolvable
 
 import static grails.plugin.enummessagesourceresolvable.transformation.DefaultNameCase.*
 
 class EnumMessageSourceResolvableHelper implements MessageSourceResolvable {
-    @Autowired
-    GrailsApplication grailsApplication
-
     private Map annotationConfig
     private Enum enumValue
 
@@ -52,7 +48,7 @@ class EnumMessageSourceResolvableHelper implements MessageSourceResolvable {
     }
 
     private getConfig() {
-        annotationConfig
+        (Holders.config?.grails?.plugin?.enummessagesourceresolvable ?: [:]) + annotationConfig
     }
 
     private getPrefix() {

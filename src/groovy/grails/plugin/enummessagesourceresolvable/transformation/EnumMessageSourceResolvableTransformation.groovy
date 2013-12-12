@@ -58,7 +58,7 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
         Expression prefix = annotationNode.getMember('prefix')
         Expression postfix = annotationNode.getMember('postfix')
         Expression shortName = annotationNode.getMember('shortName')
-        Expression defaultNameCase = annotationNode.getMember('defaultNameCase') ?: new PropertyExpression(new ClassExpression(ClassHelper.make(DefaultNameCase)), new ConstantExpression("UNCHANGED"))
+        Expression defaultNameCase = annotationNode.getMember('defaultNameCase')
 
         Expression mapExpression = new MapExpression()
         if (prefix) {
@@ -70,7 +70,9 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
         if (shortName) {
             mapExpression.addMapEntryExpression(createMapEntryExpression("shortName", shortName))
         }
-        mapExpression.addMapEntryExpression(createMapEntryExpression("defaultNameCase", defaultNameCase))
+        if (defaultNameCase) {
+            mapExpression.addMapEntryExpression(createMapEntryExpression("defaultNameCase", defaultNameCase))
+        }
         mapExpression
     }
 

@@ -1,5 +1,5 @@
 class EnumMessageSourceResolvableGrailsPlugin {
-    def version = "0.9.8-SNAPSHOT"
+    def version = "0.9.8"
     def grailsVersion = "2.0 > *"
     def title = "EnumMessageSourceResolvable Grails Plugin"
     def author = "Søren Berg Glasius"

@@ -1,4 +1,4 @@
-package grails.plugin.enummessagesourceresolvable.bean
+package grails.plugin.enummessagesourceresolvable.helper
 
 import grails.plugin.enummessagesourceresolvable.transformation.DefaultNameCase
 import grails.util.Holders
@@ -13,7 +13,6 @@ class EnumMessageSourceResolvableHelper implements MessageSourceResolvable {
     EnumMessageSourceResolvableHelper(Enum value, Map annotationConfig) {
         this.enumValue = value
         this.annotationConfig = annotationConfig
-        println annotationConfig
     }
 
     @Override

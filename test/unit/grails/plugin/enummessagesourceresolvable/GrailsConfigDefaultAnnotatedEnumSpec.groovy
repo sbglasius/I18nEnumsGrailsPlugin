@@ -26,8 +26,11 @@ class GrailsConfigDefaultAnnotatedEnumSpec extends Specification {
                 defaultNameCase: DefaultNameCase.LOWER_CASE,
                 shortName: true
         ]]]]
-        println Holders.config
 
+    }
+
+    def cleanup() {
+        Holders.config = null
     }
 
 

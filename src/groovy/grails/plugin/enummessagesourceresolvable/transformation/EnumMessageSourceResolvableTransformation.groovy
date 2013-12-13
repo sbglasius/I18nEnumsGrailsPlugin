@@ -1,6 +1,6 @@
 package grails.plugin.enummessagesourceresolvable.transformation
 import grails.plugin.enummessagesourceresolvable.annotations.EnumMessageSourceResolvable
-import grails.plugin.enummessagesourceresolvable.bean.EnumMessageSourceResolvableHelper
+import grails.plugin.enummessagesourceresolvable.helper.EnumMessageSourceResolvableHelper
 import org.codehaus.groovy.ast.*
 import org.codehaus.groovy.ast.expr.*
 import org.codehaus.groovy.control.CompilePhase

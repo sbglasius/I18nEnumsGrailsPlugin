@@ -1,4 +1,4 @@
-class EnumMessageSourceResolvableGrailsPlugin {
+class I18nEnumsGrailsPlugin {
     def version = "1.0.0"
     def grailsVersion = "2.0 > *"
     def title = "I18nEnums Grails Plugin"

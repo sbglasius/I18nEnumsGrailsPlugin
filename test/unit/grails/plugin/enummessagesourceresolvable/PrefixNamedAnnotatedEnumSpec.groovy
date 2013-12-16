@@ -28,7 +28,6 @@ class PrefixNamedAnnotatedEnumSpec extends Specification {
 		if(prefix) args << "prefix = '${prefix}'"
 		if(postfix) args << "postfix = '${postfix}'"
         def src = createSourceCodeForTemplate(source, [args: args.join(", ")])
-        println src
         def clazz = add_class_to_classpath(src)
 
 

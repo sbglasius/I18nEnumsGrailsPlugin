@@ -1,5 +1,25 @@
-This plugin adds an annotation on Enums to easy add and implement the MessageSourceResolvable interface.
-It was heavily inspired by this blog-entry by Rob Fletcher: http://adhockery.blogspot.dk/2009/03/internationalizing-domain-classes-and.html
+This plugin adds an annotation on Enums to easy add and implement the MessageSourceResolvable interface. It was heavily inspired by this blog-entry by Rob Fletcher: ][http://adhockery.blogspot.dk/2009/03/internationalizing-domain-classes-and.html]
+h2. Changes
+
+h3. v1.0.0
+Now support configuration in Config.groovy - see documentation below
+
+h3. v0.9.7
+A large rewrite of the plugin. One new DefaultNameCase enum value: ALL_CAPS, will remove underscores in the enumeration and will capitalize each word. 
+The EnumSourceResolvableTransformation now delegates all work to the EnumResourceResolvableHelper and the helper will (in the next release) be configurable from Config.groovy
+{warning}
+The package name for the annotation has changed 
+from 
+{code}
+dk.glasius.annotations
+{code}
+to
+{code}
+grails.plugin.i18nEnum.annotations
+{code}
+{warning}
+h3. v0.9.5
+Now you can make your own implementations of one or more of the methods in the MessageSourceResolvable interface. You still do not have to implement MessageSourceResolvable, just implement the methods getDefaultMessage(), getCodes() and getArguments()
 
 h2. If you use it, let me know
 
@@ -11,17 +31,17 @@ h2. Installation
 In your BuildConfig.groovy insert:
 
 {code}
-compile ':enum-message-source-resolvable:0.9'
+compile ':enum-message-source-resolvable:0.9.x'
 {code}
 
 h2. Basic usage
 
-You just annotate your ennumeration with @EnumMessageSourceResolvable
+You just annotate your ennumeration with @I18nEnum
 
 {code}
 package test
 
-@EnumMessageSourceResolvable
+@I18nEnum
 enum MyEnum {
     ONE, Two, three
 }
@@ -49,7 +69,7 @@ h2. Advanced usage
 To get even more control over, how the codes and the default value are generated, you can add parameters to the annotation:
 
 {code}
-@EnumMessageSourceResolvable(prefix = '', postfix = '', shortName = false, defaultNameCase = DefaultNameCase.UNCHANGED)
+@I18nEnum(prefix = '', postfix = '', shortName = false, defaultNameCase = DefaultNameCase.UNCHANGED)
 {code}
 
 
@@ -63,7 +83,7 @@ h4. Example:
 {code}
 package test
 
-@EnumMessageSourceResolvable(prefix = 'enum', postfix = 'label')
+@I18nEnum(prefix = 'enum', postfix = 'label')
 enum MyEnum {
     ONE, Two, three
 }
@@ -83,7 +103,7 @@ h4. Example:
 {code}
 package test
 
-@EnumMessageSourceResolvable(shortName = true)
+@I18nEnum(shortName = true)
 enum MyEnum {
     ONE, Two, three
 }
@@ -100,7 +120,7 @@ h3. defaultNameCase
 To control the defaultMessage you can use defaultNameCase. It can be set to one of the following values:
 
 {code}
-UPPER_CASE, LOWER_CASE, CAPITALIZE, UNCHANGED
+UPPER_CASE, LOWER_CASE, CAPITALIZE, ALL_CAPS, UNCHANGED
 {code}
 
 where UNCHANGED is the default.
@@ -110,7 +130,7 @@ h5. DefaultNameCase.CAPITALIZE
 {code}
 package test
 
-@EnumMessageSourceResolvable(defaultNameCase = DefaultNameCase.CAPITALIZE)
+@I18nEnum(defaultNameCase = DefaultNameCase.CAPITALIZE)
 enum MyEnum {
     ONE, Two, three
 }
@@ -123,26 +143,62 @@ test.MyEnum.Two.defaultMessage == 'Two'
 test.MyEnum.three.defaultMessage == 'Three'
 {code}
 
+h5. DefaultNameCase.ALL_CAPS
+{code}
+@I18nEnum(defaultNameCase = DefaultNameCase.ALL_CAPS)
+enum MyEnum {
+    ONE, Two, three, Four_five
+}
+{code}
+
+And the following default values:
+{code}
+test.MyEnum.ONE.defaultMessage == 'One'
+test.MyEnum.Two.defaultMessage == 'Two'
+test.MyEnum.three.defaultMessage == 'Three'
+test.MyEnum.Four_five.defaultMessage == 'Four Five'
+{code}
+
 h5. DefaultNameCase.LOWER_CASE
 {code}
 package test
 
-@EnumMessageSourceResolvable(defaultNameCase = DefaultNameCase.LOWER_CASE)
+@I18nEnum(defaultNameCase = DefaultNameCase.LOWER_CASE)
 enum MyEnum {
     ONE, Two, three
 }
 {code}
 
 And the following default values:
+
 {code}
 test.MyEnum.ONE.defaultMessage == 'one'
 test.MyEnum.Two.defaultMessage == 'two'
 test.MyEnum.three.defaultMessage == 'three'
 {code}
 
+h2. Configuration
+It is possible to configure default settings from configuration. 
+
+In Configuration.groovy create a configuration tree like this: 
+
+{code}
+import grails.plugin.i18nEnum.transformation.DefaultNameCase
+
+// Your other configuration
+
+grails {
+    plugin {
+        i18nEnum {
+            postfix = "label"
+            simpleName = true
+            defaultNameCase = DefaultNameCase.ALL_CAPS
+        }
+    }
+}
+{code}
+
+The settings values are the same as the configuration directives for the annotation.
+
 h2. License
-This is opensource and freeware. Do what you want. If you use it, it's your own fault.
-
-
-
-TO BE DONE
+Licensed under the Apache2.0 license. See http://www.apache.org/licenses/LICENSE-2.0 for more information.

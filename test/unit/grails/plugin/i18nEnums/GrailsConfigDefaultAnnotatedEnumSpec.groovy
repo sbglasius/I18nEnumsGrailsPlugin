@@ -1,5 +1,5 @@
-package grails.plugin.enummessagesourceresolvable
-import grails.plugin.enummessagesourceresolvable.transformation.DefaultNameCase
+package grails.plugin.i18nEnums
+import grails.plugin.i18nEnums.transformation.DefaultNameCase
 import grails.test.mixin.support.GrailsUnitTestMixin
 import grails.util.Holders
 import spock.lang.Specification
@@ -9,9 +9,9 @@ class GrailsConfigDefaultAnnotatedEnumSpec extends Specification {
 
     def source = """
 				package dk.glasius
-				import grails.plugin.enummessagesourceresolvable.annotations.EnumMessageSourceResolvable
+				import grails.plugin.i18nEnums.annotations.I18nEnum
 
-				@EnumMessageSourceResolvable
+				@I18nEnum
 				enum DefaultAnnotatedEnum {
 					ONE,
 					Two,
@@ -20,7 +20,7 @@ class GrailsConfigDefaultAnnotatedEnumSpec extends Specification {
 			"""
 
     def setup() {
-        Holders.config = [ grails: [plugin: [enummessagesourceresolvable: [
+        Holders.config = [ grails: [plugin: [i18nEnum: [
                 prefix:'pre',
                 postfix: 'post',
                 defaultNameCase: DefaultNameCase.LOWER_CASE,

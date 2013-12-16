@@ -1,6 +1,7 @@
-package grails.plugin.enummessagesourceresolvable.transformation
-import grails.plugin.enummessagesourceresolvable.annotations.EnumMessageSourceResolvable
-import grails.plugin.enummessagesourceresolvable.helper.EnumMessageSourceResolvableHelper
+package grails.plugin.i18nEnums.transformation
+
+import grails.plugin.i18nEnums.annotations.I18nEnum
+import grails.plugin.i18nEnums.helper.I18nEnumHelper
 import org.codehaus.groovy.ast.*
 import org.codehaus.groovy.ast.expr.*
 import org.codehaus.groovy.control.CompilePhase
@@ -13,8 +14,8 @@ import org.springframework.context.MessageSourceResolvable
 import java.lang.reflect.Modifier
 
 @GroovyASTTransformation(phase = CompilePhase.SEMANTIC_ANALYSIS)
-class EnumMessageSourceResolvableTransformation extends AbstractASTTransformation {
-    static final Class MY_CLASS = EnumMessageSourceResolvable
+class I18nEnumTransformation extends AbstractASTTransformation {
+    static final Class MY_CLASS = I18nEnum
     static final ClassNode MY_TYPE = ClassHelper.make(MY_CLASS)
     static final String MY_TYPE_NAME = '@' + MY_TYPE.nameWithoutPackage
 
@@ -45,8 +46,8 @@ class EnumMessageSourceResolvableTransformation extends AbstractASTTransformatio
 
         Expression thisExpression = new VariableExpression("this", classNode)
         ArgumentListExpression helperArguments = new ArgumentListExpression(thisExpression, mapExpression)
-        Expression helperValue = new ConstructorCallExpression(ClassHelper.make(EnumMessageSourceResolvableHelper), helperArguments)
-        FieldNode helperField = new FieldNode('$helper', Modifier.PRIVATE, ClassHelper.make(EnumMessageSourceResolvableHelper), classNode, helperValue)
+        Expression helperValue = new ConstructorCallExpression(ClassHelper.make(I18nEnumHelper), helperArguments)
+        FieldNode helperField = new FieldNode('$helper', Modifier.PRIVATE, ClassHelper.make(I18nEnumHelper), classNode, helperValue)
         AnnotationNode delegateAnnotation = new AnnotationNode(ClassHelper.make(Delegate))
 
         helperField.addAnnotation(delegateAnnotation)

@@ -1,4 +1,4 @@
-package grails.plugin.enummessagesourceresolvable
+package grails.plugin.i18nEnums
 
 import spock.lang.Specification
 import spock.lang.Unroll
@@ -8,10 +8,10 @@ class PrefixNamedAnnotatedEnumSpec extends Specification {
 
 	def source = '''
 				package dk.glasius
-				import grails.plugin.enummessagesourceresolvable.annotations.EnumMessageSourceResolvable
-				import grails.plugin.enummessagesourceresolvable.transformation.DefaultNameCase
+				import grails.plugin.i18nEnums.annotations.I18nEnum
+				import grails.plugin.i18nEnums.transformation.DefaultNameCase
 
-				@EnumMessageSourceResolvable(${args})
+				@I18nEnum(${args})
 				enum PrefixNameCasedAnnotatedEnum {
 					ONE,
 					two,

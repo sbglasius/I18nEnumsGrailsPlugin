@@ -1,4 +1,4 @@
-package grails.plugin.enummessagesourceresolvable.transformation
+package grails.plugin.i18nEnums.transformation
 
 
 enum DefaultNameCase {

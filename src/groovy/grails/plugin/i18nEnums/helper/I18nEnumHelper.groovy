@@ -1,16 +1,16 @@
-package grails.plugin.enummessagesourceresolvable.helper
+package grails.plugin.i18nEnums.helper
 
-import grails.plugin.enummessagesourceresolvable.transformation.DefaultNameCase
+import grails.plugin.i18nEnums.transformation.DefaultNameCase
 import grails.util.Holders
 import org.springframework.context.MessageSourceResolvable
 
-import static grails.plugin.enummessagesourceresolvable.transformation.DefaultNameCase.*
+import static grails.plugin.i18nEnums.transformation.DefaultNameCase.*
 
-class EnumMessageSourceResolvableHelper implements MessageSourceResolvable {
+class I18nEnumHelper implements MessageSourceResolvable {
     private Map annotationConfig
     private Enum enumValue
 
-    EnumMessageSourceResolvableHelper(Enum value, Map annotationConfig) {
+    I18nEnumHelper(Enum value, Map annotationConfig) {
         this.enumValue = value
         this.annotationConfig = annotationConfig
     }
@@ -47,7 +47,7 @@ class EnumMessageSourceResolvableHelper implements MessageSourceResolvable {
     }
 
     private getConfig() {
-        (Holders.config?.grails?.plugin?.enummessagesourceresolvable ?: [:]) + annotationConfig
+        (Holders.config?.grails?.plugin?.i18nEnum ?: [:]) + annotationConfig
     }
 
     private getPrefix() {

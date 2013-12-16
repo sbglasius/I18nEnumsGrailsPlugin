@@ -1,4 +1,4 @@
-package grails.plugin.enummessagesourceresolvable
+package grails.plugin.i18nEnums
 import groovy.text.GStringTemplateEngine
 import groovy.text.TemplateEngine
 import org.codehaus.groovy.runtime.ScriptBytecodeAdapter
@@ -44,7 +44,7 @@ class AnnotationTestHelper {
 	 */
 	protected String shouldFail(Closure code) {
 		boolean failed = false
-		String result
+		String result = null
 		try {
 			code.call()
 		}

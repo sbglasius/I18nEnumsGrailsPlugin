@@ -1,5 +1,4 @@
 This plugin adds an annotation on Enums to easy add and implement the MessageSourceResolvable interface. It was heavily inspired by this blog-entry by Rob Fletcher: ][http://adhockery.blogspot.dk/2009/03/internationalizing-domain-classes-and.html]
-h2. Changes
 
 h3. v1.0.1
 Precompiles the AST transformation, otherwise Grails will not pick them up when compiling other artefacts.
@@ -34,7 +33,7 @@ h2. Installation
 In your BuildConfig.groovy insert:
 
 {code}
-compile ':enum-message-source-resolvable:0.9.x'
+compile ':i18n-enums:1.0.0'
 {code}
 
 h2. Basic usage
@@ -194,7 +193,7 @@ grails {
     plugin {
         i18nEnum {
             postfix = "label"
-            simpleName = true
+            shortName = true
             defaultNameCase = DefaultNameCase.ALL_CAPS
         }
     }
@@ -202,6 +201,23 @@ grails {
 {code}
 
 The settings values are the same as the configuration directives for the annotation.
+h2. Changes
+
+h3. v1.0.1
+Grails event hook to precompile AST transformations before the rest of the Grails compile phase. This is needed
+so that enums annotated will be compiled correctly.
+
+h3. v1.0.0
+The plugin was formerly known as *EnumMessageSourceResolvable*, but was renamed to I18nEnums for easier reading and writing. Functionality wise it has not changed from v1.0.0 of EnumMessageSourceResolvable.
+
+Now support configuration in Config.groovy - see documentation below
+
+h3. Previous versions
+For previous versions see [EnumMessageSourceResolvable|http://grails.org/plugin/enum-message-source-resolvable]
+h2. If you use it, let me know
+
+If you use this plugin in your application, let me know - it's always nice to know, when ones work is used in the wild.
+Send me a tweet to \@sbglasius or send me an email to soeren\@glasius.dk - thank you!
 
 h2. License
 Licensed under the Apache2.0 license. See http://www.apache.org/licenses/LICENSE-2.0 for more information.

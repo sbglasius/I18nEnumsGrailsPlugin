@@ -1,6 +1,9 @@
 This plugin adds an annotation on Enums to easy add and implement the MessageSourceResolvable interface. It was heavily inspired by this blog-entry by Rob Fletcher: ][http://adhockery.blogspot.dk/2009/03/internationalizing-domain-classes-and.html]
 h2. Changes
 
+h3. v1.0.1
+Precompiles the AST transformation, otherwise Grails will not pick them up when compiling other artefacts.
+
 h3. v1.0.0
 Now support configuration in Config.groovy - see documentation below
 

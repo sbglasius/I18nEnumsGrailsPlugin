@@ -1,5 +1,5 @@
 class I18nEnumsGrailsPlugin {
-    def version = "1.0.0"
+    def version = "1.0.1"
     def grailsVersion = "2.0 > *"
     def title = "I18nEnums Grails Plugin"
     def author = "Søren Berg Glasius"
@@ -11,4 +11,5 @@ class I18nEnumsGrailsPlugin {
     def organization = [name: "Groovy Freelancer", url: "http://www.groovy-freelancer.dk/"]
     def issueManagement = [system: 'GITHUB', url: 'https://github.com/sbglasius/I18nEnumsGrailsPlugin/issues']
     def scm = [url: 'https://github.com/sbglasius/I18nEnumsGrailsPlugin']
+    def loadBefore = ['services', 'dataSource', 'hibernate', 'hibernate4', 'validation','controllers']
 }

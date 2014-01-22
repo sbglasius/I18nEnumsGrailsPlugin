@@ -13,11 +13,10 @@ import org.springframework.context.MessageSourceResolvable
 
 import java.lang.reflect.Modifier
 
+@SuppressWarnings("GroovyUnusedDeclaration")
 @GroovyASTTransformation(phase = CompilePhase.SEMANTIC_ANALYSIS)
 class I18nEnumTransformation extends AbstractASTTransformation {
     static final Class MY_CLASS = I18nEnum
-    static final ClassNode MY_TYPE = ClassHelper.make(MY_CLASS)
-    static final String MY_TYPE_NAME = '@' + MY_TYPE.nameWithoutPackage
 
     void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
         if (!(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {

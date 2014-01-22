@@ -1,28 +1,5 @@
 This plugin adds an annotation on Enums to easy add and implement the MessageSourceResolvable interface. It was heavily inspired by this blog-entry by Rob Fletcher: ][http://adhockery.blogspot.dk/2009/03/internationalizing-domain-classes-and.html]
 
-h3. v1.0.1
-Precompiles the AST transformation, otherwise Grails will not pick them up when compiling other artefacts.
-
-h3. v1.0.0
-Now support configuration in Config.groovy - see documentation below
-
-h3. v0.9.7
-A large rewrite of the plugin. One new DefaultNameCase enum value: ALL_CAPS, will remove underscores in the enumeration and will capitalize each word. 
-The EnumSourceResolvableTransformation now delegates all work to the EnumResourceResolvableHelper and the helper will (in the next release) be configurable from Config.groovy
-{warning}
-The package name for the annotation has changed 
-from 
-{code}
-dk.glasius.annotations
-{code}
-to
-{code}
-grails.plugin.i18nEnum.annotations
-{code}
-{warning}
-h3. v0.9.5
-Now you can make your own implementations of one or more of the methods in the MessageSourceResolvable interface. You still do not have to implement MessageSourceResolvable, just implement the methods getDefaultMessage(), getCodes() and getArguments()
-
 h2. If you use it, let me know
 
 If you use this plugin in your application, let me know - it's always nice to know, when ones work is used in the wild.

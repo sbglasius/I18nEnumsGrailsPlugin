@@ -1,12 +1,21 @@
 package grails.plugin.i18nEnums
 
+import org.codehaus.groovy.grails.compiler.i18nEnum.I18nEnumTransformer
+import org.codehaus.groovy.grails.compiler.injection.ClassInjector
+import org.codehaus.groovy.grails.compiler.injection.GrailsAwareClassLoader
 import spock.lang.Specification
 import spock.lang.Unroll
 
-@Mixin(AnnotationTestHelper)
 class NameCaseAnnotatedEnumSpec extends Specification {
+    GrailsAwareClassLoader gcl
+    def setup() {
+        gcl = new GrailsAwareClassLoader()
+        def transformer = new I18nEnumTransformer()
+        gcl.classInjectors = [transformer] as ClassInjector[]
+    }
 
-	def source = '''
+	def source ={nameCase ->
+        """
 				package dk.glasius
 				import grails.plugin.i18nEnums.annotations.I18nEnum
 				import grails.plugin.i18nEnums.transformation.DefaultNameCase
@@ -18,14 +27,15 @@ class NameCaseAnnotatedEnumSpec extends Specification {
 					Three,
 					FOUR_FIVE
 				}
-			'''
+			""".stripIndent()
+    }
 
 
 	@Unroll
 	def "test that the default annotated enum default message returns correct values"() {
 
 		when:
-		def clazz = add_class_to_classpath(createSourceCodeForTemplate(source, [nameCase: enumName]))
+		def clazz = gcl.parseClass(source(enumName))
 
 		then:
 		clazz.ONE.defaultMessage == one

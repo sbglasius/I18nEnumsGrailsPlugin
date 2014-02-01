@@ -1,10 +1,20 @@
 package grails.plugin.i18nEnums
 
+import org.codehaus.groovy.grails.compiler.i18nEnum.I18nEnumTransformer
+import org.codehaus.groovy.grails.compiler.injection.ClassInjector
+import org.codehaus.groovy.grails.compiler.injection.GrailsAwareClassLoader
 import spock.lang.Specification
 import spock.lang.Unroll
 
 @Mixin(AnnotationTestHelper)
 class PrefixNamedAnnotatedEnumSpec extends Specification {
+    GrailsAwareClassLoader gcl
+    def setup() {
+        gcl = new GrailsAwareClassLoader()
+        def transformer = new I18nEnumTransformer()
+        gcl.classInjectors = [transformer] as ClassInjector[]
+    }
+
 
 	def source = '''
 				package dk.glasius
@@ -28,9 +38,7 @@ class PrefixNamedAnnotatedEnumSpec extends Specification {
 		if(prefix) args << "prefix = '${prefix}'"
 		if(postfix) args << "postfix = '${postfix}'"
         def src = createSourceCodeForTemplate(source, [args: args.join(", ")])
-        def clazz = add_class_to_classpath(src)
-
-
+        def clazz = gcl.parseClass(src)
 
 		then:
 		clazz.ONE.codes == createCodeList('ONE', expectedPrefix, expectedPostfix)

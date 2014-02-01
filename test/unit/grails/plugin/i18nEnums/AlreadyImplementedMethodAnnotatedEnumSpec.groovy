@@ -1,18 +1,25 @@
 package grails.plugin.i18nEnums
+
+import org.codehaus.groovy.grails.compiler.i18nEnum.I18nEnumTransformer
+import org.codehaus.groovy.grails.compiler.injection.ClassInjector
+import org.codehaus.groovy.grails.compiler.injection.GrailsAwareClassLoader
 import spock.lang.Specification
 
-@Mixin(AnnotationTestHelper)
 class AlreadyImplementedMethodAnnotatedEnumSpec extends Specification {
 
+    GrailsAwareClassLoader gcl
+    def setup() {
+        gcl = new GrailsAwareClassLoader()
+        def transformer = new I18nEnumTransformer()
+        gcl.classInjectors = [transformer] as ClassInjector[]
+    }
+
 	def source = {"""
-            package dk.glasius
-
             import grails.plugin.i18nEnums.annotations.I18nEnum
-            import org.springframework.context.MessageSourceResolvable
-
+            // import org.springframework.context.MessageSourceResolvable
 
             @I18nEnum
-            public enum Test implements MessageSourceResolvable {
+            public enum Test {
                 ONE,
                 two,
                 Three
@@ -21,13 +28,13 @@ class AlreadyImplementedMethodAnnotatedEnumSpec extends Specification {
                 ${it}
 
             }
-			"""}
+			""".stripIndent()}
 
 
 	def "test that if the getCodes is already implemented, it is not being implemented again"() {
 
 		when:
-		def clazz = add_class_to_classpath(source("""
+		def clazz = gcl.parseClass(source("""
                 @Override
                 String[] getCodes() {
                     return ['some.other.code'] as String[]
@@ -42,7 +49,7 @@ class AlreadyImplementedMethodAnnotatedEnumSpec extends Specification {
     def "test that if the getArguments is already implemented, it is not being implemented again"() {
 
 		when:
-		def clazz = add_class_to_classpath(source("""
+		def clazz = gcl.parseClass(source("""
                 @Override
                 Object[] getArguments() {
                     return [1,'A'] as Object[]
@@ -57,7 +64,7 @@ class AlreadyImplementedMethodAnnotatedEnumSpec extends Specification {
     def "test that if the getDefaultMessage is already implemented, it is not being implemented again"() {
 
 		when:
-		def clazz = add_class_to_classpath(source("""
+		def clazz = gcl.parseClass(source("""
                 @Override
                 String getDefaultMessage() {
                     return "Another default message"

@@ -1,10 +1,8 @@
 import org.codehaus.gant.GantBinding
 
+/*
 includeTargets << grailsScript("_GrailsInit")
 
-/**
- * Hooks to the compile grails event
- */
 eventCompileStart = {GantBinding compileBinding ->
     setCompilerSettings()
     resolveDependencies()
@@ -13,16 +11,21 @@ eventCompileStart = {GantBinding compileBinding ->
 
     try {
         grailsConsole.updateStatus "Precompiling I18nEnums AST transforms...."
-        def _path = basedir + '/src/groovy'
-        if (new File(_path).directory) {
-            ant.mkdir(dir: classesDirPath)
-            ant.precompileGroovyc(destdir: classesDirPath,
+        def pluginDir = i18nEnumsPluginDir?.toString() ?: basedir
+        def pluginSourcePath = pluginDir + '/src/groovy'
+        def pluginDestPath = projectCompiler.pluginSettings.buildSettings.pluginBuildClassesDir.absolutePath
+        println "Compiling files in ${pluginSourcePath}"
+        println "Compiling files to ${pluginDestPath}"
+
+        if (new File(pluginSourcePath).directory) {
+            ant.mkdir(dir: pluginDestPath)
+            ant.precompileGroovyc(destdir: pluginDestPath,
                     classpathref: "grails.compile.classpath",
                     encoding: projectCompiler.encoding,
                     verbose: projectCompiler.verbose,
                     listfiles: projectCompiler.verbose) {
 
-                src(path: _path)
+                src(path: pluginSourcePath)
 
             }
         }
@@ -33,3 +36,4 @@ eventCompileStart = {GantBinding compileBinding ->
         grailsConsole.error("Could not precompile sources: " + e.class.name + ": " + e.message, e)
     }
 }
+*/

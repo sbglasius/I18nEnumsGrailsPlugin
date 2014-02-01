@@ -2,10 +2,26 @@ package grails.plugin.i18nEnums
 import grails.plugin.i18nEnums.transformation.DefaultNameCase
 import grails.test.mixin.support.GrailsUnitTestMixin
 import grails.util.Holders
+import org.codehaus.groovy.grails.compiler.i18nEnum.I18nEnumTransformer
+import org.codehaus.groovy.grails.compiler.injection.ClassInjector
+import org.codehaus.groovy.grails.compiler.injection.GrailsAwareClassLoader
 import spock.lang.Specification
 
-@Mixin([AnnotationTestHelper, GrailsUnitTestMixin])
+@Mixin([GrailsUnitTestMixin])
 class GrailsConfigOverrideAnnotatedEnumSpec extends Specification {
+    GrailsAwareClassLoader gcl
+    def setup() {
+        gcl = new GrailsAwareClassLoader()
+        def transformer = new I18nEnumTransformer()
+        gcl.classInjectors = [transformer] as ClassInjector[]
+
+        Holders.config = [ grails: [plugin: [i18nEnum: [
+                prefix:'pre',
+                postfix: 'post',
+                defaultNameCase: DefaultNameCase.LOWER_CASE,
+                shortName: true
+        ]]]]
+    }
 
     def source = """
 				package dk.glasius
@@ -20,16 +36,6 @@ class GrailsConfigOverrideAnnotatedEnumSpec extends Specification {
 				}
 			"""
 
-    def setup() {
-        Holders.config = [ grails: [plugin: [i18nEnum: [
-                prefix:'pre',
-                postfix: 'post',
-                defaultNameCase: DefaultNameCase.LOWER_CASE,
-                shortName: true
-        ]]]]
-
-    }
-
     def cleanup() {
         Holders.config = null
     }
@@ -37,7 +43,7 @@ class GrailsConfigOverrideAnnotatedEnumSpec extends Specification {
 
     def "test that the annotated enum default message returns correct values"() {
         when:
-        def clazz = add_class_to_classpath(source)
+        def clazz = gcl.parseClass(source)
 
         then:
         clazz.ONE.defaultMessage == 'ONE'
@@ -45,11 +51,9 @@ class GrailsConfigOverrideAnnotatedEnumSpec extends Specification {
         clazz.three.defaultMessage == 'THREE'
     }
 
-
-
     def "test that the annotated enum arguments returns correct values"() {
         when:
-        def clazz = add_class_to_classpath(source)
+        def clazz = gcl.parseClass(source)
 
         then:
         clazz.ONE.arguments == []
@@ -59,7 +63,7 @@ class GrailsConfigOverrideAnnotatedEnumSpec extends Specification {
 
     def "test that the annotated enum codes returns correct values"() {
         when:
-        def clazz = add_class_to_classpath(source)
+        def clazz = gcl.parseClass(source)
 
         then:
         clazz.ONE.codes == ['overridepre.dk.glasius.DefaultAnnotatedEnum.ONE.overridepost', 'overridepre.dk.glasius.DefaultAnnotatedEnum.ONE.overridepost', 'overridepre.dk.glasius.DefaultAnnotatedEnum.one.overridepost']

@@ -6,6 +6,7 @@ import org.codehaus.groovy.ast.*
 import org.codehaus.groovy.ast.expr.*
 import org.codehaus.groovy.control.CompilePhase
 import org.codehaus.groovy.control.SourceUnit
+import org.codehaus.groovy.grails.compiler.injection.AstTransformer
 import org.codehaus.groovy.transform.AbstractASTTransformation
 import org.codehaus.groovy.transform.DelegateASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation
@@ -15,6 +16,7 @@ import java.lang.reflect.Modifier
 
 @SuppressWarnings("GroovyUnusedDeclaration")
 @GroovyASTTransformation(phase = CompilePhase.SEMANTIC_ANALYSIS)
+@AstTransformer
 class I18nEnumTransformation extends AbstractASTTransformation {
     static final Class MY_CLASS = I18nEnum
 

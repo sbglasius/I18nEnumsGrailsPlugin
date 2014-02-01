@@ -5,27 +5,33 @@ includeTargets << grailsScript("_GrailsInit")
 /**
  * Hooks to the compile grails event
  */
-eventCompileStart = {GantBinding compileBinding ->
+eventClasspathStart = {GantBinding compileBinding ->
     setCompilerSettings()
     resolveDependencies()
 
     ant.taskdef(name: 'precompileGroovyc', classname: 'org.codehaus.groovy.ant.Groovyc')
 
     try {
-        grailsConsole.updateStatus "Precompiling I18nEnums AST transforms...."
-        def _path = basedir + '/src/groovy'
-        if (new File(_path).directory) {
-            ant.mkdir(dir: classesDirPath)
-            ant.precompileGroovyc(destdir: classesDirPath,
+        grailsConsole.addStatus "Precompiling I18nEnums AST transforms...."
+        def sourceDir =  (compileBinding.variables.i18nEnumsPluginDir?.absolutePath ?: basedir) + '/src/groovy-ast'
+        def destDir = new File(grailsSettings.projectWorkDir, 'ast-classes')
+        println grailsSettings.compileDependencies
+        println sourceDir
+        println destDir.absolutePath
+        if (new File(sourceDir).directory) {
+            ant.mkdir(dir: destDir)
+            ant.precompileGroovyc(destdir: destDir,
                     classpathref: "grails.compile.classpath",
                     encoding: projectCompiler.encoding,
                     verbose: projectCompiler.verbose,
                     listfiles: projectCompiler.verbose) {
 
-                src(path: _path)
+                src(path: sourceDir)
 
             }
         }
+        grailsSettings.compileDependencies << destDir
+        println grailsSettings.compileDependencies
 
         grailsConsole.addStatus "... done precompiling I18nEnums AST transforms...."
 

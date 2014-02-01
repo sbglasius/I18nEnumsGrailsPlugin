@@ -26,15 +26,15 @@ public class I18nEnumTransformer implements AllArtefactClassInjector {
     public void performInjection(SourceUnit source, GeneratorContext context, ClassNode classNode) {
         List<AnnotationNode> i18nEnumAnnotations = classNode.getAnnotations(new ClassNode(I18nEnum.class));
         if (classNode.isEnum() && !i18nEnumAnnotations.isEmpty()) {
-            FieldNode helper = addHelper(classNode, i18nEnumAnnotations.get(0));
-            addMethod(classNode, helper, "getCodes", ClassHelper.STRING_TYPE.makeArray());
-            addMethod(classNode, helper, "getArguments", ClassHelper.OBJECT_TYPE.makeArray());
-            addMethod(classNode, helper, "getDefaultMessage", ClassHelper.STRING_TYPE);
+            addHelper(classNode, i18nEnumAnnotations.get(0));
+            addMethod(classNode, "getCodes", ClassHelper.STRING_TYPE.makeArray());
+            addMethod(classNode, "getArguments", ClassHelper.OBJECT_TYPE.makeArray());
+            addMethod(classNode, "getDefaultMessage", ClassHelper.STRING_TYPE);
             addInterface(classNode);
         }
     }
 
-    private void addMethod(ClassNode classNode, FieldNode helper, String methodName, ClassNode returnType) {
+    private void addMethod(ClassNode classNode, String methodName, ClassNode returnType) {
         final boolean hasMethod = GrailsASTUtils.implementsZeroArgMethod(classNode, methodName);
         if (!hasMethod) {
             FieldExpression methodHelperVariable = new FieldExpression(classNode.getField(I18N_ENUM_HELPER));
@@ -61,6 +61,7 @@ public class I18nEnumTransformer implements AllArtefactClassInjector {
 
     @Override
     public boolean shouldInject(URL url) {
+        System.out.println(url);
         return true;
     }
 

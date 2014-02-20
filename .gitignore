@@ -14,6 +14,13 @@ plugin.xml
 
 # "temporary" build files
 /target
+**/target
+/out
 
 # other
 *.iws
+*.iml
+*.ipr
+
+**/.project
+**/.classpath

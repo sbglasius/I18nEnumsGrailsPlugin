@@ -7,11 +7,13 @@ Send me a tweet to \@sbglasius or send me an email to soeren\@glasius.dk - thank
 
 h2. Installation
 
-In your BuildConfig.groovy insert:
+In your dependencies section of BuildConfig.groovy insert:
 
 {code}
-compile ':i18n-enums:1.0.0'
+compile 'org.grails.plugins:i18n-enums:1.0.2'
 {code}
+
+Please note, that you should not put it in the plugins section
 
 h2. Basic usage
 
@@ -179,6 +181,8 @@ grails {
 
 The settings values are the same as the configuration directives for the annotation.
 h2. Changes
+h3. v1.0.2
+The plugin is now released as a binary plugin due to AST transformations not being applied to inlined plugins.
 
 h3. v1.0.1
 Grails event hook to precompile AST transformations before the rest of the Grails compile phase. This is needed

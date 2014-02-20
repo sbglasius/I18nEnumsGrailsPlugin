@@ -51,6 +51,7 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes e.g.
         // runtime 'mysql:mysql-connector-java:5.1.27'
         // runtime 'org.postgresql:postgresql:9.3-1100-jdbc41'
+        compile 'org.grails.plugins:i18n-enums:1.0.2-SNAPSHOT'
     }
 
     plugins {
@@ -73,4 +74,3 @@ grails.project.dependency.resolution = {
     }
 }
 
-grails.plugin.location.'i18n-enums' = '../../..'

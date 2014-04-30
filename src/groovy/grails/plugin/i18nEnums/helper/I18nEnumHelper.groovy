@@ -1,7 +1,9 @@
 package grails.plugin.i18nEnums.helper
 
 import grails.plugin.i18nEnums.transformation.DefaultNameCase
+import grails.util.Holder
 import grails.util.Holders
+import org.springframework.context.MessageSource
 import org.springframework.context.MessageSourceResolvable
 
 import static grails.plugin.i18nEnums.transformation.DefaultNameCase.*
@@ -58,5 +60,10 @@ class I18nEnumHelper implements MessageSourceResolvable {
     private getPostfix() {
         String postfix = config.postfix
         return postfix ? (postfix.startsWith('.') ? '' : '.') + postfix : ''
+    }
+
+    String getMessage() {
+        def ms = Holders.applicationContext.getBean('messageSource') as MessageSource
+        ms ? ms.getMessage(this, Locale.default) : defaultMessage
     }
 }

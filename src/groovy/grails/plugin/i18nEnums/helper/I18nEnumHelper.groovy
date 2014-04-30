@@ -1,7 +1,6 @@
 package grails.plugin.i18nEnums.helper
 
 import grails.plugin.i18nEnums.transformation.DefaultNameCase
-import grails.util.Holder
 import grails.util.Holders
 import org.springframework.context.MessageSource
 import org.springframework.context.MessageSourceResolvable

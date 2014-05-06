@@ -41,12 +41,16 @@ Variant 1
 It can be done as from View and from Controller/Service
 
 ```groovy
+// controller/service:
 messageSource.getMessage(your.namespace.SomeEnum.VAL1, Locale.default)
+
+// view:
+${messageSource.getMessage(your.namespace.SomeEnum.VAL1, Locale.default)}
 ```
 
 Variant 2
 ---------
-This can be done as from Views
+This can be done from Views
 
 ```groovy
 <g:message error="${your.namespace.SomeEnum.VAL1}"/>
@@ -55,7 +59,7 @@ Here some hack used. Message tag can render MessageSourceResolvable only if we p
 
 Variant 3
 ---------
-This can be done as from anywhere
+This can be done from anywhere
 
 ```groovy
 your.namespace.SomeEnum.VAL1.message

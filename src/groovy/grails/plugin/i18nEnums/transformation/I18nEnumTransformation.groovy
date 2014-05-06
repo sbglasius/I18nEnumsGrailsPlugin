@@ -1,6 +1,5 @@
 package grails.plugin.i18nEnums.transformation
 
-import grails.plugin.i18nEnums.annotations.I18nEnum
 import grails.plugin.i18nEnums.helper.I18nEnumHelper
 import org.codehaus.groovy.ast.*
 import org.codehaus.groovy.ast.expr.*
@@ -16,67 +15,51 @@ import java.lang.reflect.Modifier
 @SuppressWarnings("GroovyUnusedDeclaration")
 @GroovyASTTransformation(phase = CompilePhase.SEMANTIC_ANALYSIS)
 class I18nEnumTransformation extends AbstractASTTransformation {
-    static final Class MY_CLASS = I18nEnum
+
+    static Set<Class<? extends Enum>> enums = new HashSet<Class<? extends Enum>>()
 
     void visit(ASTNode[] nodes, SourceUnit sourceUnit) {
-        if (!(nodes[0] instanceof AnnotationNode) || !(nodes[1] instanceof AnnotatedNode)) {
-            throw new RuntimeException("Internal error: wrong types: ${nodes[0].class} / ${nodes[1].class}")
-        }
-        AnnotationNode annotationNode = nodes[0] as AnnotationNode
-        def annotatedNode = nodes[1]
+        init(nodes, sourceUnit)
+        def ano = nodes[0] as AnnotationNode
+        def cls = nodes[1] as AnnotatedNode
+        if (cls instanceof ClassNode && cls.enum) {
+            enums << cls.typeClass
 
-
-        if (annotatedNode instanceof ClassNode) {
-            ClassNode classNode = annotatedNode
-            addInterface(classNode)
-            addHelper(classNode, annotationNode)
-
+            addInterfaces(cls, MessageSourceResolvable)
+            installHelper(cls, ano)
         }
     }
 
+    private addInterfaces(ClassNode cls, Class<?> ... ifaces) { cls.addInterface(ClassHelper.make(ifaces)) }
 
-    private addInterface(ClassNode classNode) {
-        def clazz = ClassHelper.make(MessageSourceResolvable)
-        classNode.addInterface(clazz)
+    private installHelper(ClassNode cls, AnnotationNode ano) {
+        Expression constructor = new ConstructorCallExpression(
+                ClassHelper.make(I18nEnumHelper),
+                new ArgumentListExpression(
+                    new VariableExpression("this", cls),
+                    createConfigExpr(ano)
+            )
+        )
+
+        FieldNode $helper = new FieldNode('$helper', Modifier.PRIVATE, ClassHelper.make(I18nEnumHelper), cls, constructor)
+        AnnotationNode delegateAno = new AnnotationNode(ClassHelper.make(Delegate))
+        $helper.addAnnotation(delegateAno)
+        cls.addTransform(DelegateASTTransformation, delegateAno)
+
+        cls.addField($helper)
     }
 
-    private addHelper(ClassNode classNode, AnnotationNode annotationNode) {
-        MapExpression mapExpression = createMapExpression(annotationNode)
-
-        Expression thisExpression = new VariableExpression("this", classNode)
-        ArgumentListExpression helperArguments = new ArgumentListExpression(thisExpression, mapExpression)
-        Expression helperValue = new ConstructorCallExpression(ClassHelper.make(I18nEnumHelper), helperArguments)
-        FieldNode helperField = new FieldNode('$helper', Modifier.PRIVATE, ClassHelper.make(I18nEnumHelper), classNode, helperValue)
-        AnnotationNode delegateAnnotation = new AnnotationNode(ClassHelper.make(Delegate))
-
-        helperField.addAnnotation(delegateAnnotation)
-        classNode.addTransform(DelegateASTTransformation, delegateAnnotation)
-        classNode.addField(helperField)
+    private MapExpression createConfigExpr(AnnotationNode ano) {
+        MapExpression map = new MapExpression()
+        ['prefix', 'postfix', 'shortName', 'defaultNameCase'].each {
+            Expression expr = ano.getMember(it)
+            if(expr) {
+                map.addMapEntryExpression(createConfigEntryExpr(it, expr))
+            }
+        }
+        map
     }
 
-    private MapExpression createMapExpression(AnnotationNode annotationNode) {
-        Expression prefix = annotationNode.getMember('prefix')
-        Expression postfix = annotationNode.getMember('postfix')
-        Expression shortName = annotationNode.getMember('shortName')
-        Expression defaultNameCase = annotationNode.getMember('defaultNameCase')
+    private MapEntryExpression createConfigEntryExpr(String k, Expression v) { new MapEntryExpression(new ConstantExpression(k), v) }
 
-        Expression mapExpression = new MapExpression()
-        if (prefix) {
-            mapExpression.addMapEntryExpression(createMapEntryExpression("prefix", prefix))
-        }
-        if (postfix) {
-            mapExpression.addMapEntryExpression(createMapEntryExpression("postfix", postfix))
-        }
-        if (shortName) {
-            mapExpression.addMapEntryExpression(createMapEntryExpression("shortName", shortName))
-        }
-        if (defaultNameCase) {
-            mapExpression.addMapEntryExpression(createMapEntryExpression("defaultNameCase", defaultNameCase))
-        }
-        mapExpression
-    }
-
-    private MapEntryExpression createMapEntryExpression(String key, Expression value) {
-        new MapEntryExpression(new ConstantExpression(key), value)
-    }
 }

@@ -1,6 +1,7 @@
 /web-app
 
 # IDE support files
+/atlassian-ide-plugin.xml
 /.classpath
 /.launch
 /.project

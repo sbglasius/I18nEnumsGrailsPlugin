@@ -1,6 +1,8 @@
 package grails.plugin.i18nEnums.helper
 
 import grails.plugin.i18nEnums.transformation.DefaultNameCase
+import grails.plugin.i18nEnums.util.MessageSourceHolder
+import grails.util.Holder
 import grails.util.Holders
 import org.springframework.context.MessageSource
 import org.springframework.context.MessageSourceResolvable
@@ -8,6 +10,7 @@ import org.springframework.context.MessageSourceResolvable
 import static grails.plugin.i18nEnums.transformation.DefaultNameCase.*
 
 class I18nEnumHelper implements MessageSourceResolvable {
+
     private Map annotationConfig
     private Enum enumValue
 
@@ -62,7 +65,8 @@ class I18nEnumHelper implements MessageSourceResolvable {
     }
 
     String getMessage() {
-        def ms = Holders.applicationContext.getBean('messageSource') as MessageSource
+        def ms = MessageSourceHolder.messageSource
         ms ? ms.getMessage(this, Locale.default) : defaultMessage
     }
+
 }

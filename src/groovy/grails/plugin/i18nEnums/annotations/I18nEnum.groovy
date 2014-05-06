@@ -13,13 +13,7 @@ import java.lang.annotation.Target
 @GroovyASTTransformationClass(["grails.plugin.i18nEnums.transformation.I18nEnumTransformation"])
 public @interface I18nEnum {
 	String prefix() default ''
-
-
 	String postfix() default ''
-
-
 	boolean shortName() default false
-
-
 	DefaultNameCase defaultNameCase() default DefaultNameCase.UNCHANGED
 }

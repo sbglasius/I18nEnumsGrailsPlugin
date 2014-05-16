@@ -1,8 +1,9 @@
 package test
 
-import grails.plugin.i18nEnums.annotations.I18nEnum
+import grails.plugin.i18n.enums.Internationalized
+import grails.plugin.i18n.enums.Internationalized
 
-@I18nEnum
+@Internationalized
 public enum TestEnum {
     ONE,
     TWO

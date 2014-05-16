@@ -1,13 +1,13 @@
-import grails.plugin.i18nEnums.util.MessageSourceHolder
+import grails.plugin.i18n.enums.MessageSourceHolder
 import org.springframework.context.MessageSource
 import org.springframework.context.support.ReloadableResourceBundleMessageSource
 
 class I18nEnumsGrailsPlugin {
-    def version = "1.0.2"
+    def version = "1.0.3"
     def grailsVersion = "2.0 > *"
     def title = "I18nEnums Grails Plugin"
-    def author = "Søren Berg Glasius"
-    def authorEmail = "soeren@glasius.dk"
+    def author = "Søren Berg Glasius, Andrey Onistchuk"
+    def authorEmail = "soeren@glasius.dk, andyglow@gmail.com"
     def description = 'Adds an enumeration usable on Enums to easy add and implement the MessageSourceResolvable interface'
     def documentation = "http://grails.org/plugin/i18n-enums"
 

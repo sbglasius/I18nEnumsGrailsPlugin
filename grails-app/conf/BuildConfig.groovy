@@ -1,4 +1,6 @@
 grails.project.work.dir = 'target'
+grails.release.scm.enabled = false
+grails.project.plugin.includeSource = false
 
 grails.project.dependency.resolution = {
 
@@ -6,9 +8,9 @@ grails.project.dependency.resolution = {
 	log 'warn'
 
 	repositories {
-		grailsCentral()
 		mavenLocal()
 		mavenCentral()
+        grailsCentral()
 	}
 
 	dependencies {
@@ -16,7 +18,7 @@ grails.project.dependency.resolution = {
 	}
 
 	plugins {
-		build(':release:2.2.1', ':rest-client-builder:1.0.3') {
+		build(':release:3.0.1', ':rest-client-builder:1.0.3') {
 			export = true
 		}
 		test(":spock:0.7") {

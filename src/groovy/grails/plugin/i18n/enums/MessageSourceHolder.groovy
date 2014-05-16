@@ -1,4 +1,4 @@
-package grails.plugin.i18nEnums.util
+package grails.plugin.i18n.enums
 
 import grails.util.Holders
 import org.springframework.context.MessageSource

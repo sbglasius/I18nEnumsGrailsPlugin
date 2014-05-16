@@ -1,31 +1,24 @@
-package grails.plugin.i18nEnums
+package grails.plugin.i18n.enums
 
 import spock.lang.Specification
 import spock.lang.Unroll
 
 @Mixin(AnnotationTestHelper)
-class NameCaseAnnotatedEnumSpec extends Specification {
+class NameCaseAnnotatedEnumSpec extends EnumSpecification {
 
-	def source = '''
-				package dk.glasius
-				import grails.plugin.i18nEnums.annotations.I18nEnum
-				import grails.plugin.i18nEnums.transformation.DefaultNameCase
-
-				@I18nEnum(defaultNameCase = DefaultNameCase.${nameCase})
-				enum NameCasedAnnotatedEnum {
-					ONE,
-					two,
-					Three,
-					FOUR_FIVE
-				}
-			'''
-
+	def theEnumTpl = newEnum().with {
+        values = ['ONE', 'two', 'Three', 'FOUR_FIVE']
+        it
+    }
 
 	@Unroll
 	def "test that the default annotated enum default message returns correct values"() {
 
 		when:
-		def clazz = add_class_to_classpath(createSourceCodeForTemplate(source, [nameCase: enumName]))
+		def clazz = theEnumTpl.with {
+            nameCase = DefaultNameCase.valueOf(enumName)
+            it
+        }.newClazz()
 
 		then:
 		clazz.ONE.defaultMessage == one
@@ -39,7 +32,7 @@ class NameCaseAnnotatedEnumSpec extends Specification {
 		'UPPER_CASE' | 'ONE' | 'TWO' | 'THREE' | 'FOUR_FIVE'
 		'LOWER_CASE' | 'one' | 'two' | 'three' | 'four_five'
 		'CAPITALIZE' | 'One' | 'Two' | 'Three' | 'Four_five'
-		'ALL_CAPS' | 'One' | 'Two' | 'Three' | 'Four Five'
+		'ALL_CAPS'   | 'One' | 'Two' | 'Three' | 'Four Five'
 	}
 }
 

@@ -1,20 +1,18 @@
-package grails.plugin.i18nEnums.helper
+package grails.plugin.i18n.enums
 
-import grails.plugin.i18nEnums.transformation.DefaultNameCase
-import grails.plugin.i18nEnums.util.MessageSourceHolder
-import grails.util.Holder
 import grails.util.Holders
-import org.springframework.context.MessageSource
 import org.springframework.context.MessageSourceResolvable
 
-import static grails.plugin.i18nEnums.transformation.DefaultNameCase.*
+import static DefaultNameCase.*
 
-class I18nEnumHelper implements MessageSourceResolvable {
+class EnumDelegate implements MessageSourceResolvable {
+
+    private Map mergedConfig
 
     private Map annotationConfig
     private Enum enumValue
 
-    I18nEnumHelper(Enum value, Map annotationConfig) {
+    EnumDelegate(Enum value, Map annotationConfig) {
         this.enumValue = value
         this.annotationConfig = annotationConfig
     }
@@ -30,9 +28,7 @@ class I18nEnumHelper implements MessageSourceResolvable {
     }
 
     @Override
-    Object[] getArguments() {
-        []
-    }
+    Object[] getArguments() { [] }
 
     @Override
     String getDefaultMessage() {
@@ -51,7 +47,7 @@ class I18nEnumHelper implements MessageSourceResolvable {
     }
 
     private getConfig() {
-        (Holders.config?.grails?.plugin?.i18nEnum ?: [:]) + annotationConfig
+        mergedConfig ? mergedConfig : (mergedConfig = ((Holders.config?.grails?.plugin?.i18n?.enums ?: [:]) + annotationConfig))
     }
 
     private getPrefix() {

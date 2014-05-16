@@ -14,7 +14,7 @@ Let's create some Enum to start.
 ```groovy
 package your.namespace
 
-@grails.plugin.i18nEnums.I18nEnum
+@grails.plugin.i18n.enums.Internationalized
 enum SomeEnum {
 
     VAL0, VAL1, VAL2;

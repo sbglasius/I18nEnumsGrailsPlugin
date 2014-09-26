@@ -1,20 +1,3 @@
-This plugin adds an annotation on Enums to easy add and implement the MessageSourceResolvable interface. It was heavily inspired by this blog-entry by Rob Fletcher: ][http://adhockery.blogspot.dk/2009/03/internationalizing-domain-classes-and.html]
-
-h2. If you use it, let me know
-
-If you use this plugin in your application, let me know - it's always nice to know, when ones work is used in the wild.
-Send me a tweet to \@sbglasius or send me an email to soeren\@glasius.dk - thank you!
-
-h2. Installation
-
-In your dependencies section of BuildConfig.groovy insert:
-
-{code}
-compile 'org.grails.plugins:i18n-enums:1.0.2'
-{code}
-
-Please note, that you should not put it in the plugins section
-
 h2. Basic usage
 
 You just annotate your ennumeration with @I18nEnum
@@ -35,7 +18,7 @@ test.MyEnum.Two.codes   == ['test.MyEnum.TWO',   'test.MyEnum.Two',   'test.MyEn
 test.MyEnum.three.codes == ['test.MyEnum.THREE', 'test.MyEnum.three', 'test.MyEnum.three']
 {code}
 
-And the following default values: 
+And the following default values:
 {code}
 test.MyEnum.ONE.defaultMessage == 'ONE'
 test.MyEnum.Two.defaultMessage == 'Two'
@@ -56,7 +39,7 @@ To get even more control over, how the codes and the default value are generated
 
 h3. Prefix and Postfix
 
-Prefix controls what is added before the package name. If you do not add a dot after the prefix, one will be added for you. 
+Prefix controls what is added before the package name. If you do not add a dot after the prefix, one will be added for you.
 
 Postfix controls what is added after the ENUM_VALUE. If you do not add a dot before the postfix, one will be added for you.
 
@@ -159,9 +142,9 @@ test.MyEnum.three.defaultMessage == 'three'
 {code}
 
 h2. Configuration
-It is possible to configure default settings from configuration. 
+It is possible to configure default settings from configuration.
 
-In Configuration.groovy create a configuration tree like this: 
+In Configuration.groovy create a configuration tree like this:
 
 {code}
 import grails.plugin.i18nEnum.transformation.DefaultNameCase
@@ -180,25 +163,3 @@ grails {
 {code}
 
 The settings values are the same as the configuration directives for the annotation.
-h2. Changes
-h3. v1.0.2
-The plugin is now released as a binary plugin due to AST transformations not being applied to inlined plugins.
-
-h3. v1.0.1
-Grails event hook to precompile AST transformations before the rest of the Grails compile phase. This is needed
-so that enums annotated will be compiled correctly.
-
-h3. v1.0.0
-The plugin was formerly known as *EnumMessageSourceResolvable*, but was renamed to I18nEnums for easier reading and writing. Functionality wise it has not changed from v1.0.0 of EnumMessageSourceResolvable.
-
-Now support configuration in Config.groovy - see documentation below
-
-h3. Previous versions
-For previous versions see [EnumMessageSourceResolvable|http://grails.org/plugin/enum-message-source-resolvable]
-h2. If you use it, let me know
-
-If you use this plugin in your application, let me know - it's always nice to know, when ones work is used in the wild.
-Send me a tweet to \@sbglasius or send me an email to soeren\@glasius.dk - thank you!
-
-h2. License
-Licensed under the Apache2.0 license. See http://www.apache.org/licenses/LICENSE-2.0 for more information.

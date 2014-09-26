@@ -1,5 +1,5 @@
 class I18nEnumsGrailsPlugin {
-    def version = "1.0.3"
+    def version = "1.0.4"
     def grailsVersion = "2.0 > *"
     def title = "I18nEnums Grails Plugin"
     def author = "Søren Berg Glasius"

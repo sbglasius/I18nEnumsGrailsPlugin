@@ -10,9 +10,10 @@ eventClasspathStart = { GantBinding compileBinding ->
 
     ant.taskdef(name: 'precompileGroovyc', classname: 'org.codehaus.groovy.ant.Groovyc')
     try {
-        def sourceDir = (compileBinding.variables.i18nEnumsPluginDir?.absolutePath ?: basedir) + '/src/groovy-ast'
+        def sourceDir = (compileBinding.variables.i18nEnumsPluginDir?.absolutePath ?: basedir) + '/src/groovy'
         def destDir = grailsSettings.classesDir
         ant.mkdir(dir: destDir)
+        grailsConsole.addStatus "Precompiling I18nEnums AST transforms."
         ant.precompileGroovyc(destdir: destDir,
                 classpathref: "grails.compile.classpath",
                 encoding: projectCompiler.encoding,

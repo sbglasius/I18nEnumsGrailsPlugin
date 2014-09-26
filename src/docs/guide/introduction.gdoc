@@ -6,6 +6,9 @@ If you use this plugin in your application, let me know - it's always nice to kn
 Send me a tweet (*\@sbglasius*) or an email (*soeren\@glasius.dk*) - thank you!
 
 h2. Changes
+h3. v1.0.5, v1.0.6
+Updating plugin descriptor, documentation and build dependencies
+
 h3. v1.0.4
 Documentation now on GitHub pages instead of grails.org
 

@@ -41,8 +41,13 @@ grails.project.dependency.resolution = {
         grailsCentral()
         mavenCentral()
     }
-
+    def webDriverVersion = "2.43.1"
+    def gebVersion = "0.9.3"
     dependencies {
+        test "org.gebish:geb-spock:$gebVersion"
+
+        test "org.seleniumhq.selenium:selenium-support:$webDriverVersion"
+        test "org.seleniumhq.selenium:selenium-firefox-driver:$webDriverVersion"
     }
 
     plugins {
@@ -54,6 +59,9 @@ grails.project.dependency.resolution = {
         compile 'org.grails.plugins:i18n-enums:1.0.7'
 
         runtime ":hibernate:3.6.10.17" // or ":hibernate4:4.1.11.6"
+
+        test ":geb:$gebVersion"
+
     }
 }
 

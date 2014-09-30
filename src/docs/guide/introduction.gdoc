@@ -7,7 +7,8 @@ Send me a tweet (*\@sbglasius*) or an email (*soeren\@glasius.dk*) - thank you!
 
 h2. Changes
 h3. v1.0.7
-Files to be pre-compiled moved from groovy-ast to groovy, that way Intellij Idea can find them when parsing the project for completions.
+* Files to be pre-compiled moved from groovy-ast to groovy, that way Intellij Idea can find them when parsing the project for completions.
+* Test project (test/project/I18nEnumTest) now has more tests incl. GEB
 
 h3. v1.0.5, v1.0.6
 Updating plugin descriptor, documentation and build dependencies

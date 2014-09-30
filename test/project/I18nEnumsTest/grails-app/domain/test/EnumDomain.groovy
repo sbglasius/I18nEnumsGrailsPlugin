@@ -4,7 +4,7 @@ class EnumDomain {
     DefaultEnum defaultEnum
     CapitalizeEnum capitalizeEnum
     PrefixLowercaseEnum prefixLowercaseEnum
-    PostfixAllCapsEnum postfixEnum
+    PostfixAllCapsEnum postfixAllCapsEnum
     TranslatedEnum translatedEnum
 
     static constraints = {

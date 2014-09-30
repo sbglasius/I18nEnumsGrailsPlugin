@@ -1,7 +1,7 @@
 package test
 
 class EnumDomain {
-    TestEnum testEnum
+    CapitalizeEnum testEnum
 
     static constraints = {
     }

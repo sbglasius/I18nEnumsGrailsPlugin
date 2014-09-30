@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>1 Introduction 1.0.6</title>
+    <title>1 Introduction 1.0.7</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
     <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
@@ -69,7 +69,7 @@ function addJsClass() {
 
                     <p><strong>Authors:</strong> Søren Berg Glasius</p>
 
-                    <p><strong>Version:</strong> 1.0.6</p>
+                    <p><strong>Version:</strong> 1.0.7</p>
 
                     
                 </div>
@@ -81,7 +81,11 @@ function addJsClass() {
 <h1 id="introduction">1 Introduction</h1>
 This plugin adds an annotation on Enums to easy add and implement the MessageSourceResolvable interface. It was heavily inspired by this blog-entry by Rob Fletcher: ]<a href="http://adhockery.blogspot.dk/2009/03/internationalizing-domain-classes-and.html" target="blank"></a><p class="paragraph"/><h2>If you use it, let me know</h2><p class="paragraph"/>If you use this plugin in your application, let me know - it's always nice to know, when ones work is used in the wild.
 Send me a tweet (<strong class="bold">&#64;sbglasius</strong>) or an email (<strong class="bold">soeren&#64;glasius.dk</strong>) - thank you!<p class="paragraph"/><h2>Changes</h2>
-<h3>v1.0.5, v1.0.6</h3>
+<h3>v1.0.7</h3>
+<ul class="star">
+<li>Files to be pre-compiled moved from groovy-ast to groovy, that way Intellij Idea can find them when parsing the project for completions.</li>
+<li>Test project (test/project/I18nEnumTest) now has more tests incl. GEB</li>
+</ul><p class="paragraph"/><h3>v1.0.5, v1.0.6</h3>
 Updating plugin descriptor, documentation and build dependencies<p class="paragraph"/><h3>v1.0.4</h3>
 Documentation now on GitHub pages instead of grails.org<p class="paragraph"/><h3>v1.0.3</h3>
 Plugin now runs under Grails 2.4.x

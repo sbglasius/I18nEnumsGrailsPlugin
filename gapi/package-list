@@ -1,1 +1,4 @@
 DefaultPackage
+grails.plugin.i18nEnums.annotations
+grails.plugin.i18nEnums.helper
+grails.plugin.i18nEnums.transformation

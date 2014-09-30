@@ -1,7 +1,11 @@
 package test
 
 class EnumDomain {
-    CapitalizeEnum testEnum
+    DefaultEnum defaultEnum
+    CapitalizeEnum capitalizeEnum
+    PrefixLowercaseEnum prefixLowercaseEnum
+    PostfixAllCapsEnum postfixEnum
+    TranslatedEnum translatedEnum
 
     static constraints = {
     }

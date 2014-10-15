@@ -7,6 +7,9 @@ If you use this plugin in your application, let me know - it's always nice to kn
 Send me a tweet (*\@sbglasius*) or an email (*soeren\@glasius.dk*) - thank you!
 
 h2. Changes
+h3. v1.0.8
+Cleanup. No functionality changes.
+
 h3. v1.0.7
 * Files to be pre-compiled moved from groovy-ast to groovy, that way Intellij Idea can find them when parsing the project for completions.
 * Test project (test/project/I18nEnumTest) now has more tests incl. GEB
